@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Website</title>
+<meta charset="utf-8">
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+ 
+ <style>
+	#box{
+		width:200px;
+		height:200px;
+		background-color:red;
+		border-radius:100px;
+		border:0px;
+		display:none;
+	}
+ </style>
+</head>
+
+<body>
+<h1>Welcome to Test-Reactor</h1>
+<h4>Click on the disappearing circles below to test your speed</h4>
+<p><button id="start">Start Game</button></p>
+<p>Your time is: <span id="timing">0 </span>seconds</p>
+<button id="box"></button>
+<script type="text/javascript">
+ var createdTime;
+ var clickedTime;
+ var reactionTime;
+ 
+	document.getElementById("start").onclick=function(){
+		 makebox();
+	}
+	function colorGenerator() {
+		var color="#";
+		var letter="0123456789ABCDEF".split("");
+		for(var i=0;i<6;i++)
+		{
+			color+=letter[Math.floor(Math.random()*15)];
+		}
+		return color;
+	}
+
+	
+  function makebox() {
+	x=Math.random();
+	x=6*x;
+	x=Math.floor(x);
+	var leftRandom=Math.random();
+	leftRandom=leftRandom*1000;
+	var topRandom=Math.random();
+	topRandom*=1000;
+	setTimeout(function() {
+	document.getElementById("box").style.marginLeft=leftRandom+"px";
+	document.getElementById("box").style.marginBottom=topRandom+"px";
+	document.getElementById("box").style.backgroundColor=colorGenerator();
+	document.getElementById("box").style.display="block";
+	createdTime=Date.now();
+	},x*1000);
+  }
+  document.getElementById("box").onclick=function() {
+	document.getElementById("box").style.display="none";
+	clickedTime=Date.now();
+	reactionTime=(clickedTime-createdTime)/1000;
+	document.getElementById("timing").innerHTML=reactionTime+" ";
+	makebox();
+  }
+ 
+
+</script>
+</body>
+</html>
